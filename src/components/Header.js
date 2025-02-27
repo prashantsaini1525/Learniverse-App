@@ -1,20 +1,19 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X, Sun, Moon } from "lucide-react";
+import { Menu, X, Sun, Moon, ChevronUp, ChevronDown } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/router";
 import MobileMenu from "./MobileMenu"; // Import the MobileMenu component
 
 const Header = () => {
+  const router = useRouter();
+  const [activeNav, setActiveNav] = useState(router.asPath || "/");
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showExtra, setShowExtra] = useState(false);
   const { theme, setTheme, resolvedTheme } = useTheme();
   const [scrolled, setScrolled] = useState(false);
-  const router = useRouter();
 
-  // Active nav state: initializes with the current path so Home is active by default.
-  const [activeNav, setActiveNav] = useState(router.asPath || "/");
-
-  // Update activeNav when router.asPath changes (e.g., via browser navigation)
+  // Update active navigation state when route changes.
   useEffect(() => {
     setActiveNav(router.asPath);
   }, [router.asPath]);
@@ -25,7 +24,6 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Navigation items array
   const navItems = [
     { href: "/", text: "Home" },
     { href: "/courses", text: "Courses" },
@@ -36,7 +34,16 @@ const Header = () => {
     { href: "/feedback", text: "Feedback" },
   ];
 
-  // Handler for smooth scrolling on hash anchors and setting active navigation
+  // Main navigation items (always visible)
+  const mainNavItems = navItems.filter(
+    (item) => !["Founder", "Services", "Feedback"].includes(item.text)
+  );
+  // Extra navigation items to be placed inside the Explore dropdown
+  const extraNavItems = navItems.filter((item) =>
+    ["Founder", "Services", "Feedback"].includes(item.text)
+  );
+
+  // Handler for navigation clicks (including smooth scrolling for hash links)
   const handleNavItemClick = (e, href) => {
     setActiveNav(href);
     if (router.pathname === "/" && (href === "/#about" || href === "/#contact")) {
@@ -46,15 +53,16 @@ const Header = () => {
       if (targetElement) {
         targetElement.scrollIntoView({ behavior: "smooth" });
       }
-      // Close mobile menu on navigation
-      setMenuOpen(false);
     }
+    setMenuOpen(false);
+    setShowExtra(false);
   };
 
   return (
     <header
-      className={`fixed top-8 left-8 right-8 backdrop-blur-md bg-white/50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 z-50 transition-shadow ${scrolled ? "shadow-lg" : "shadow-none"
-        } rounded-full`}
+      className={`fixed top-8 left-8 right-8 backdrop-blur-md bg-white/50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 z-50 transition-shadow ${
+        scrolled ? "shadow-lg" : "shadow-none"
+      } rounded-full`}
     >
       <div className="max-w-screen-xl mx-auto px-4 sm:px-8 flex justify-between items-center py-3">
         <div>
@@ -66,21 +74,62 @@ const Header = () => {
         </div>
 
         <nav className="hidden md:flex space-x-6 text-lg font-medium">
-          {navItems.map(({ href, text }) => (
+          {mainNavItems.map(({ href, text }) => (
             <Link
               key={href}
               href={href}
               onClick={(e) => handleNavItemClick(e, href)}
-              className={`relative transition-colors duration-300 ease-in-out ${activeNav === href
+              className={`transition-colors duration-300 ease-in-out ${
+                activeNav === href
                   ? "text-blue-600 dark:text-blue-400"
                   : "text-gray-900 dark:text-white hover:text-blue-500"
-                }`}
+              }`}
             >
               {text}
             </Link>
           ))}
-        </nav>
 
+          {/* Updated Explore Dropdown */}
+          <div
+            className="relative"
+            onMouseEnter={() => setShowExtra(true)}
+            onMouseLeave={() => setShowExtra(false)}
+          >
+            <button className="flex items-center space-x-1 transition-colors duration-300 ease-in-out text-gray-900 dark:text-white hover:text-blue-500">
+              <span>Explore</span>
+              {showExtra ? (
+                <ChevronUp size={20} className="text-blue-600 dark:text-blue-400" />
+              ) : (
+                <ChevronDown
+                  size={20}
+                  className="text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400"
+                />
+              )}
+            </button>
+            <div
+              className={`absolute left-0 top-full mt-1 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-xl z-10 transition-all duration-300 transform ${
+                showExtra ? "opacity-100 scale-100 visible" : "opacity-0 scale-95 invisible"
+              }`}
+            >
+              <div className="py-2">
+                {extraNavItems.map(({ href, text }) => (
+                  <Link
+                    key={href}
+                    href={href}
+                    onClick={(e) => handleNavItemClick(e, href)}
+                    className={`block px-4 py-2 transition-colors duration-300 ease-in-out ${
+                      activeNav === href
+                        ? "text-blue-600 dark:text-blue-400"
+                        : "text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400"
+                    }`}
+                  >
+                    {text}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+        </nav>
 
         <div className="flex items-center space-x-3">
           <div className="hidden md:flex space-x-2">
@@ -107,16 +156,14 @@ const Header = () => {
           </button>
 
           <button
-            className={`md:hidden p-2 rounded-full shadow-lg transition ${theme === "dark"
-                ? "bg-gray-800 text-white"
-                : "bg-gray-800 text-white"
-              }`}
+            className={`md:hidden p-2 rounded-full shadow-lg transition ${
+              theme === "dark" ? "bg-gray-800 text-white" : "bg-gray-800 text-white"
+            }`}
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label={menuOpen ? "Close Menu" : "Open Menu"}
           >
             {menuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
-
         </div>
       </div>
 
