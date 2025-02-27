@@ -134,8 +134,8 @@ const Header = () => {
 
         <div className="flex items-center space-x-3">
           <div className="hidden md:flex space-x-2">
-            <Link href="/signin" className="btn btn-primary btn-sm rounded-full text-white">
-              Sign In
+            <Link href="/login" className="btn btn-primary btn-sm rounded-full text-white">
+              Login
             </Link>
           </div>
 
