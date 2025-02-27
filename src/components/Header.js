@@ -66,13 +66,15 @@ const Header = () => {
       <div className="max-w-screen-xl mx-auto px-4 sm:px-8 flex justify-between items-center py-3">
         <div>
           <Link href="/">
-            <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-gray-900 dark:text-white">
+            {/* Adjusted logo font sizes for a moderate appearance */}
+            <h1 className="text-xl sm:text-2xl md:text-2xl font-extrabold text-gray-900 dark:text-white">
               Learniverse
             </h1>
           </Link>
         </div>
 
-        <nav className="hidden md:flex space-x-6 text-lg font-medium">
+        {/* Adjusted navigation font size */}
+        <nav className="hidden md:flex space-x-6 text-base font-medium">
           {mainNavItems.map(({ href, text }) => (
             <Link
               key={href}
@@ -87,7 +89,7 @@ const Header = () => {
             </Link>
           ))}
 
-          {/* Updated Explore Dropdown */}
+          {/* Explore Dropdown */}
           <div className="relative">
             <button
               onClick={() => setShowExtra((prev) => !prev)}
@@ -128,22 +130,12 @@ const Header = () => {
               </div>
             </div>
           </div>
-
         </nav>
 
         <div className="flex items-center space-x-3">
           <div className="hidden md:flex space-x-2">
-            <Link
-              href="/signin"
-              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
-            >
+            <Link href="/signin" className="btn btn-primary btn-sm rounded-full text-white">
               Sign In
-            </Link>
-            <Link
-              href="/signup"
-              className="px-4 py-2 border border-blue-600 text-blue-600 rounded-md hover:bg-blue-600 hover:text-white transition"
-            >
-              Sign Up
             </Link>
           </div>
 

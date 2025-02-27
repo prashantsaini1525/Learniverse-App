@@ -12,6 +12,7 @@
     "@emailjs/browser": "^4.4.1",
     "@react-three/drei": "^10.0.2",
     "@react-three/fiber": "^9.0.4",
+    "daisyui": "^4.12.24",
     "framer-motion": "^12.4.7",
     "gsap": "^3.12.7",
     "lottie-react": "^2.4.1",
