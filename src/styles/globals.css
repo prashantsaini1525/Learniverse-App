@@ -5,6 +5,12 @@
 @tailwind components;
 @tailwind utilities;
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 /* Base styles for the document */
 html,
 body {
@@ -12,7 +18,6 @@ body {
   padding: 0;
   scroll-behavior: smooth;
   font-family: "Poppins", sans-serif;
-  /* background-color: #050816; */
   color: white;
 }
 

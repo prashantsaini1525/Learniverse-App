@@ -12,7 +12,7 @@ const Footer = () => {
               Empowering your learning journey with innovative resources and cutting-edge tools. Join our community and start learning today!
             </p>
           </div>
-          
+
           {/* Quick Links */}
           <div>
             <h2 className="text-xl sm:text-2xl font-semibold mb-4">Quick Links</h2>
@@ -39,7 +39,7 @@ const Footer = () => {
               </li>
             </ul>
           </div>
-          
+
           {/* Resources */}
           <div>
             <h2 className="text-xl sm:text-2xl font-semibold mb-4">Resources</h2>
@@ -66,20 +66,20 @@ const Footer = () => {
               </li>
             </ul>
           </div>
-          
+
           {/* Subscribe */}
           <div>
             <h2 className="text-xl sm:text-2xl font-semibold mb-4">Stay Connected</h2>
             <form className="mb-4">
-              <div className="flex flex-col sm:flex-row">
+              <div className="flex flex-wrap items-center gap-2">
                 <input
                   type="email"
                   placeholder="Enter your email"
-                  className="w-full sm:w-auto px-4 py-2 rounded-md focus:outline-none text-gray-900"
+                  className="flex-grow min-w-[200px] w-full px-4 py-2 rounded-md focus:outline-none text-gray-900"
                 />
                 <button
                   type="submit"
-                  className="mt-2 sm:mt-0 sm:ml-2 bg-indigo-700 hover:bg-indigo-800 text-white px-4 py-2 rounded-md transition-colors"
+                  className="flex-shrink-0 bg-indigo-700 hover:bg-indigo-800 text-white px-4 py-2 rounded-md transition-colors"
                 >
                   Subscribe
                 </button>
@@ -101,7 +101,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        
+
         <div className="mt-12 border-t border-gray-700 pt-6 text-center">
           <p className="text-gray-400 text-xs sm:text-sm">
             &copy; {new Date().getFullYear()} My Learniverse. All rights reserved.
