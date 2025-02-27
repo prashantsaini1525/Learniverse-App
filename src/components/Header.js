@@ -60,9 +60,8 @@ const Header = () => {
 
   return (
     <header
-      className={`fixed top-8 left-8 right-8 backdrop-blur-md bg-white/50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 z-50 transition-shadow ${
-        scrolled ? "shadow-lg" : "shadow-none"
-      } rounded-full`}
+      className={`fixed top-8 left-8 right-8 backdrop-blur-md bg-white/50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 z-50 transition-shadow ${scrolled ? "shadow-lg" : "shadow-none"
+        } rounded-full`}
     >
       <div className="max-w-screen-xl mx-auto px-4 sm:px-8 flex justify-between items-center py-3">
         <div>
@@ -79,23 +78,23 @@ const Header = () => {
               key={href}
               href={href}
               onClick={(e) => handleNavItemClick(e, href)}
-              className={`transition-colors duration-300 ease-in-out ${
-                activeNav === href
+              className={`transition-colors duration-300 ease-in-out ${activeNav === href
                   ? "text-blue-600 dark:text-blue-400"
                   : "text-gray-900 dark:text-white hover:text-blue-500"
-              }`}
+                }`}
             >
               {text}
             </Link>
           ))}
 
           {/* Updated Explore Dropdown */}
-          <div
-            className="relative"
-            onMouseEnter={() => setShowExtra(true)}
-            onMouseLeave={() => setShowExtra(false)}
-          >
-            <button className="flex items-center space-x-1 transition-colors duration-300 ease-in-out text-gray-900 dark:text-white hover:text-blue-500">
+          <div className="relative">
+            <button
+              onClick={() => setShowExtra((prev) => !prev)}
+              onMouseEnter={() => setShowExtra(true)}
+              onMouseLeave={() => setShowExtra(false)}
+              className="flex items-center space-x-1 transition-colors duration-300 ease-in-out text-gray-900 dark:text-white hover:text-blue-500"
+            >
               <span>Explore</span>
               {showExtra ? (
                 <ChevronUp size={20} className="text-blue-600 dark:text-blue-400" />
@@ -107,9 +106,10 @@ const Header = () => {
               )}
             </button>
             <div
-              className={`absolute left-0 top-full mt-1 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-xl z-10 transition-all duration-300 transform ${
-                showExtra ? "opacity-100 scale-100 visible" : "opacity-0 scale-95 invisible"
-              }`}
+              onMouseEnter={() => setShowExtra(true)}
+              onMouseLeave={() => setShowExtra(false)}
+              className={`absolute left-0 top-full mt-1 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-xl z-10 transition-all duration-300 transform ${showExtra ? "opacity-100 scale-100 visible" : "opacity-0 scale-95 invisible"
+                }`}
             >
               <div className="py-2">
                 {extraNavItems.map(({ href, text }) => (
@@ -117,11 +117,10 @@ const Header = () => {
                     key={href}
                     href={href}
                     onClick={(e) => handleNavItemClick(e, href)}
-                    className={`block px-4 py-2 transition-colors duration-300 ease-in-out ${
-                      activeNav === href
+                    className={`block px-4 py-2 transition-colors duration-300 ease-in-out ${activeNav === href
                         ? "text-blue-600 dark:text-blue-400"
                         : "text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400"
-                    }`}
+                      }`}
                   >
                     {text}
                   </Link>
@@ -129,6 +128,7 @@ const Header = () => {
               </div>
             </div>
           </div>
+
         </nav>
 
         <div className="flex items-center space-x-3">
@@ -156,9 +156,8 @@ const Header = () => {
           </button>
 
           <button
-            className={`md:hidden p-2 rounded-full shadow-lg transition ${
-              theme === "dark" ? "bg-gray-800 text-white" : "bg-gray-800 text-white"
-            }`}
+            className={`md:hidden p-2 rounded-full shadow-lg transition ${theme === "dark" ? "bg-gray-800 text-white" : "bg-gray-800 text-white"
+              }`}
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label={menuOpen ? "Close Menu" : "Open Menu"}
           >
