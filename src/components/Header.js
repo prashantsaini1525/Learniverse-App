@@ -101,15 +101,15 @@ const Header = () => {
           <button
             onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
             aria-label="Toggle Theme"
-            className="p-2 rounded-full bg-gray-200 dark:bg-gray-800 hover:bg-gray-900 text-gray-900 dark:text-white transition"
+            className="p-2 rounded-full bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-white transition"
           >
             {resolvedTheme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
           </button>
 
           <button
             className={`md:hidden p-2 rounded-full shadow-lg transition ${theme === "dark"
-                ? "bg-gray-800 text-white hover:bg-gray-700"
-                : "bg-gray-800 text-white hover:bg-gray-900"
+                ? "bg-gray-800 text-white"
+                : "bg-gray-800 text-white"
               }`}
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label={menuOpen ? "Close Menu" : "Open Menu"}
