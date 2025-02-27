@@ -11,7 +11,7 @@ const MobileMenu = ({ menuOpen, setMenuOpen, navItems, activePath }) => {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.3 }}
-          className="md:hidden absolute top-full left-8 right-8 mx-auto mt-2 max-w-screen-xl rounded-lg border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-gray-900/50 backdrop-blur-md shadow-lg p-6 z-50"
+          className="lg:hidden absolute top-full left-8 right-8 mx-auto mt-2 max-w-screen-xl rounded-lg border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-gray-900/50 backdrop-blur-md shadow-lg p-6 z-50"
         >
           <nav className="flex flex-col space-y-4 text-base font-medium text-gray-900 dark:text-white">
             {navItems.map(({ href, text }) => (

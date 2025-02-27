@@ -60,8 +60,9 @@ const Header = () => {
 
   return (
     <header
-      className={`fixed top-8 left-8 right-8 backdrop-blur-md bg-white/50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 z-50 transition-shadow ${scrolled ? "shadow-lg" : "shadow-none"
-        } rounded-full`}
+      className={`fixed top-8 left-8 right-8 backdrop-blur-md bg-white/50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 z-50 transition-shadow ${
+        scrolled ? "shadow-lg" : "shadow-none"
+      } rounded-full`}
     >
       <div className="max-w-screen-xl mx-auto px-4 sm:px-8 flex justify-between items-center py-3">
         <div>
@@ -73,17 +74,18 @@ const Header = () => {
           </Link>
         </div>
 
-        {/* Adjusted navigation font size */}
-        <nav className="hidden md:flex space-x-6 text-base font-medium">
+        {/* Desktop navigation now only shows on large screens (1024px and up) */}
+        <nav className="hidden lg:flex space-x-6 text-base font-medium">
           {mainNavItems.map(({ href, text }) => (
             <Link
               key={href}
               href={href}
               onClick={(e) => handleNavItemClick(e, href)}
-              className={`transition-colors duration-300 ease-in-out ${activeNav === href
+              className={`transition-colors duration-300 ease-in-out ${
+                activeNav === href
                   ? "text-blue-600 dark:text-blue-400"
                   : "text-gray-900 dark:text-white hover:text-blue-500"
-                }`}
+              }`}
             >
               {text}
             </Link>
@@ -110,8 +112,9 @@ const Header = () => {
             <div
               onMouseEnter={() => setShowExtra(true)}
               onMouseLeave={() => setShowExtra(false)}
-              className={`absolute left-0 top-full mt-1 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-xl z-10 transition-all duration-300 transform ${showExtra ? "opacity-100 scale-100 visible" : "opacity-0 scale-95 invisible"
-                }`}
+              className={`absolute left-0 top-full mt-1 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-xl z-10 transition-all duration-300 transform ${
+                showExtra ? "opacity-100 scale-100 visible" : "opacity-0 scale-95 invisible"
+              }`}
             >
               <div className="py-2">
                 {extraNavItems.map(({ href, text }) => (
@@ -119,10 +122,11 @@ const Header = () => {
                     key={href}
                     href={href}
                     onClick={(e) => handleNavItemClick(e, href)}
-                    className={`block px-4 py-2 transition-colors duration-300 ease-in-out ${activeNav === href
+                    className={`block px-4 py-2 transition-colors duration-300 ease-in-out ${
+                      activeNav === href
                         ? "text-blue-600 dark:text-blue-400"
                         : "text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400"
-                      }`}
+                    }`}
                   >
                     {text}
                   </Link>
@@ -133,8 +137,12 @@ const Header = () => {
         </nav>
 
         <div className="flex items-center space-x-3">
-          <div className="hidden md:flex space-x-2">
-            <Link href="/login" className="btn btn-primary btn-sm rounded-full text-white">
+          {/* Login button visible on large screens */}
+          <div className="hidden lg:flex space-x-2">
+            <Link
+              href="/login"
+              className="btn btn-primary btn-sm rounded-full text-white"
+            >
               Login
             </Link>
           </div>
@@ -147,9 +155,11 @@ const Header = () => {
             {resolvedTheme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
           </button>
 
+          {/* Mobile menu button visible on screens smaller than lg */}
           <button
-            className={`md:hidden p-2 rounded-full shadow-lg transition ${theme === "dark" ? "bg-gray-800 text-white" : "bg-gray-800 text-white"
-              }`}
+            className={`lg:hidden p-2 rounded-full shadow-lg transition ${
+              theme === "dark" ? "bg-gray-800 text-white" : "bg-gray-800 text-white"
+            }`}
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label={menuOpen ? "Close Menu" : "Open Menu"}
           >
