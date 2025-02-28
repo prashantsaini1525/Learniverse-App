@@ -3,14 +3,14 @@ import Link from "next/link";
 import { Menu, X, Sun, Moon, ChevronUp, ChevronDown } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/router";
-import MobileMenu from "./MobileMenu"; // Import the MobileMenu component
+import MobileMenu from "./MobileMenu";
 
 const Header = () => {
   const router = useRouter();
   const [activeNav, setActiveNav] = useState(router.asPath || "/");
   const [menuOpen, setMenuOpen] = useState(false);
   const [showExtra, setShowExtra] = useState(false);
-  const { theme, setTheme, resolvedTheme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme();
   const [scrolled, setScrolled] = useState(false);
 
   // Update active navigation state when route changes.
@@ -65,17 +65,17 @@ const Header = () => {
       } rounded-full`}
     >
       <div className="max-w-screen-xl mx-auto px-4 sm:px-8 flex justify-between items-center py-3">
+        {/* Left: Logo */}
         <div>
           <Link href="/">
-            {/* Adjusted logo font sizes for a moderate appearance */}
             <h1 className="text-xl sm:text-2xl md:text-2xl font-extrabold text-gray-900 dark:text-white">
               Learniverse
             </h1>
           </Link>
         </div>
 
-        {/* Desktop navigation now only shows on large screens (1024px and up) */}
-        <nav className="hidden lg:flex space-x-6 text-base font-medium">
+        {/* Center: Desktop navigation with Login button integrated */}
+        <nav className="hidden lg:flex space-x-6 text-base font-medium items-center">
           {mainNavItems.map(({ href, text }) => (
             <Link
               key={href}
@@ -92,7 +92,7 @@ const Header = () => {
           ))}
 
           {/* Explore Dropdown */}
-          <div className="relative">
+          <div className="relative inline-block">
             <button
               onClick={() => setShowExtra((prev) => !prev)}
               onMouseEnter={() => setShowExtra(true)}
@@ -112,7 +112,8 @@ const Header = () => {
             <div
               onMouseEnter={() => setShowExtra(true)}
               onMouseLeave={() => setShowExtra(false)}
-              className={`absolute left-0 top-full mt-1 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-xl z-10 transition-all duration-300 transform ${
+              // Position dropdown with its right edge aligned to avoid overlapping the Login button
+              className={`absolute right-0 top-full mt-1 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-xl z-10 transition-all duration-300 transform ${
                 showExtra ? "opacity-100 scale-100 visible" : "opacity-0 scale-95 invisible"
               }`}
             >
@@ -134,19 +135,18 @@ const Header = () => {
               </div>
             </div>
           </div>
+
+          {/* Login Button placed after Explore dropdown */}
+          <Link
+            href="/login"
+            className="btn btn-primary btn-sm rounded-full text-white ml-4"
+          >
+            Login
+          </Link>
         </nav>
 
+        {/* Right: Theme toggler and mobile menu button */}
         <div className="flex items-center space-x-3">
-          {/* Login button visible on large screens */}
-          <div className="hidden lg:flex space-x-2">
-            <Link
-              href="/login"
-              className="btn btn-primary btn-sm rounded-full text-white"
-            >
-              Login
-            </Link>
-          </div>
-
           <button
             onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
             aria-label="Toggle Theme"
@@ -154,12 +154,8 @@ const Header = () => {
           >
             {resolvedTheme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
           </button>
-
-          {/* Mobile menu button visible on screens smaller than lg */}
           <button
-            className={`lg:hidden p-2 rounded-full shadow-lg transition ${
-              theme === "dark" ? "bg-gray-800 text-white" : "bg-gray-800 text-white"
-            }`}
+            className="lg:hidden p-2 rounded-full shadow-lg transition bg-gray-800 text-white"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label={menuOpen ? "Close Menu" : "Open Menu"}
           >
