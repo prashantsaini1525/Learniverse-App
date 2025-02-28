@@ -9,6 +9,7 @@
 *::before,
 *::after {
   box-sizing: border-box;
+  /* outline: red solid 1px; */
 }
 
 /* Base styles for the document */
