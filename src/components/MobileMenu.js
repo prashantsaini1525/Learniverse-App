@@ -1,8 +1,12 @@
 // components/MobileMenu.js
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
+import { useClerk, useUser, UserButton } from "@clerk/nextjs";
 
 const MobileMenu = ({ menuOpen, setMenuOpen, navItems, activePath, menuTop }) => {
+  const clerk = useClerk();
+  const { isLoaded, user } = useUser();
+
   return (
     <AnimatePresence>
       {menuOpen && (
@@ -11,7 +15,6 @@ const MobileMenu = ({ menuOpen, setMenuOpen, navItems, activePath, menuTop }) =>
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 0.3 }}
-          // Remove the fixed top-20 class and use the dynamic top offset.
           style={{ top: menuTop }}
           className="fixed left-16 right-16 rounded-lg border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-gray-900/50 backdrop-blur-md shadow-lg p-4 z-40"
         >
@@ -37,15 +40,39 @@ const MobileMenu = ({ menuOpen, setMenuOpen, navItems, activePath, menuTop }) =>
                   </span>
                 </Link>
               ))}
-              {/* Mobile Login Button */}
               <div className="mt-4">
-                <Link
-                  href="/login"
-                  onClick={() => setMenuOpen(false)}
-                  className="px-4 py-2 btn btn-primary text-white rounded-full text-center transition transform hover:scale-105"
-                >
-                  Login
-                </Link>
+                {!isLoaded ? (
+                  <div style={{ width: "40px", height: "40px" }}></div>
+                ) : user ? (
+                  <div className="flex items-center space-x-2">
+                    <span className="text-gray-900 dark:text-white text-sm sm:text-base leading-tight align-middle">
+                      Hi, {user.firstName || "User"}!
+                    </span>
+                    <div className="inline-flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 flex-shrink-0">
+                      <UserButton
+                        appearance={{
+                          elements: {
+                            userButtonPopover:
+                              "fixed top-20 right-4 z-50 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 shadow-lg rounded p-2",
+                          },
+                        }}
+                        className="m-0 p-0"
+                      />
+                    </div>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => {
+                      setMenuOpen(false);
+                      setTimeout(() => {
+                        clerk.openSignIn();
+                      }, 100);
+                    }}
+                    className="px-4 py-2 btn btn-primary text-white rounded-full text-center transition transform hover:scale-105"
+                  >
+                    Login
+                  </button>
+                )}
               </div>
             </nav>
           </div>

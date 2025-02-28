@@ -5,6 +5,8 @@ import { Menu, X, Sun, Moon, ChevronUp, ChevronDown } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/router";
 import MobileMenu from "./MobileMenu";
+// Import Clerk hooks and components
+import { useClerk, useUser, UserButton } from "@clerk/nextjs";
 
 const Header = () => {
   const router = useRouter();
@@ -15,6 +17,10 @@ const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const headerRef = useRef(null);
   const [menuTop, setMenuTop] = useState(0);
+
+  // Clerk hooks: obtain the Clerk instance and user data
+  const clerk = useClerk();
+  const { isLoaded, user } = useUser();
 
   // Calculate the header's bottom position (plus a margin)
   useEffect(() => {
@@ -163,13 +169,27 @@ const Header = () => {
               </div>
             </div>
 
-            {/* Login Button */}
-            <Link
-              href="/login"
-              className="btn btn-primary btn-sm rounded-full text-white ml-4"
-            >
-              Login
-            </Link>
+            {/* Login / User Icon Area */}
+            <div className="ml-4">
+              {!isLoaded ? (
+                <div style={{ width: "40px", height: "40px" }}></div>
+              ) : user ? (
+                // Display a greeting next to the UserButton
+                <div className="flex items-center space-x-2">
+                  <span className="text-gray-900 dark:text-white">
+                    Hi, {user.firstName || "User"}!
+                  </span>
+                  <UserButton />
+                </div>
+              ) : (
+                <button
+                  onClick={() => clerk.openSignIn()}
+                  className="btn btn-primary btn-sm rounded-full text-white"
+                >
+                  Login
+                </button>
+              )}
+            </div>
           </nav>
 
           {/* Right: Theme toggler & Mobile Menu Button */}
