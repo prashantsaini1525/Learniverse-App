@@ -1,4 +1,17 @@
-import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
+import {
+  FaFacebookF,
+  FaTwitter,
+  FaInstagram,
+  FaLinkedinIn,
+  FaHome,
+  FaInfoCircle,
+  FaGraduationCap,
+  FaPhoneAlt,
+  FaNewspaper,
+  FaChalkboardTeacher,
+  FaVideo,
+  FaQuestionCircle
+} from 'react-icons/fa';
 
 const Footer = () => {
   return (
@@ -21,7 +34,8 @@ const Footer = () => {
               Quick Links
             </h2>
             <ul className="space-y-2">
-              <li>
+              <li className="flex items-center space-x-2">
+                <FaHome className="text-gray-300" />
                 <a
                   href="#"
                   className="text-gray-300 hover:text-white transition-colors text-sm sm:text-base md:text-sm"
@@ -29,7 +43,8 @@ const Footer = () => {
                   Home
                 </a>
               </li>
-              <li>
+              <li className="flex items-center space-x-2">
+                <FaInfoCircle className="text-gray-300" />
                 <a
                   href="#"
                   className="text-gray-300 hover:text-white transition-colors text-sm sm:text-base md:text-sm"
@@ -37,7 +52,8 @@ const Footer = () => {
                   About Us
                 </a>
               </li>
-              <li>
+              <li className="flex items-center space-x-2">
+                <FaGraduationCap className="text-gray-300" />
                 <a
                   href="#"
                   className="text-gray-300 hover:text-white transition-colors text-sm sm:text-base md:text-sm"
@@ -45,7 +61,8 @@ const Footer = () => {
                   Courses
                 </a>
               </li>
-              <li>
+              <li className="flex items-center space-x-2">
+                <FaPhoneAlt className="text-gray-300" />
                 <a
                   href="#"
                   className="text-gray-300 hover:text-white transition-colors text-sm sm:text-base md:text-sm"
@@ -62,7 +79,8 @@ const Footer = () => {
               Resources
             </h2>
             <ul className="space-y-2">
-              <li>
+              <li className="flex items-center space-x-2">
+                <FaNewspaper className="text-gray-300" />
                 <a
                   href="#"
                   className="text-gray-300 hover:text-white transition-colors text-sm sm:text-base md:text-sm"
@@ -70,7 +88,8 @@ const Footer = () => {
                   Blog
                 </a>
               </li>
-              <li>
+              <li className="flex items-center space-x-2">
+                <FaChalkboardTeacher className="text-gray-300" />
                 <a
                   href="#"
                   className="text-gray-300 hover:text-white transition-colors text-sm sm:text-base md:text-sm"
@@ -78,7 +97,8 @@ const Footer = () => {
                   Tutorials
                 </a>
               </li>
-              <li>
+              <li className="flex items-center space-x-2">
+                <FaVideo className="text-gray-300" />
                 <a
                   href="#"
                   className="text-gray-300 hover:text-white transition-colors text-sm sm:text-base md:text-sm"
@@ -86,7 +106,8 @@ const Footer = () => {
                   Webinars
                 </a>
               </li>
-              <li>
+              <li className="flex items-center space-x-2">
+                <FaQuestionCircle className="text-gray-300" />
                 <a
                   href="#"
                   className="text-gray-300 hover:text-white transition-colors text-sm sm:text-base md:text-sm"
@@ -107,12 +128,9 @@ const Footer = () => {
                 <input
                   type="email"
                   placeholder="Enter your email"
-                  className="flex-grow md:min-w-0 w-full px-4 py-2 rounded-md focus:outline-none text-gray-900"
+                  className="input input-bordered input-primary flex-grow md:min-w-0 w-full"
                 />
-                <button
-                  type="submit"
-                  className="flex-shrink-0 bg-indigo-700 hover:bg-indigo-800 text-white px-4 py-2 rounded-md transition-colors"
-                >
+                <button type="submit" className="btn btn-primary  flex-shrink-0 text-gray-200">
                   Subscribe
                 </button>
               </div>
