@@ -72,17 +72,17 @@ To set up the project locally, follow these steps:
    yarn install
    ```
 
-3.**Run the Application:**
+3. **Run the Application:**
 
-Start the development server using:
+   Start the development server using:
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
 
-The application will be available at http://localhost:3000.
+   The application will be available at http://localhost:3000.
 
 ## Usage
 
